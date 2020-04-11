@@ -1,0 +1,3 @@
+{
+  "app": "npx ts-node --project infrastructure/tsconfig.cdk.json infrastructure"
+}
