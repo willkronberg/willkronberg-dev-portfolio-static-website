@@ -3,6 +3,10 @@ import * as CodeBuild from '@aws-cdk/aws-codebuild';
 import * as S3 from '@aws-cdk/aws-s3';
 import * as CodePipeline from '@aws-cdk/aws-codepipeline';
 import * as CodePipelineAction from '@aws-cdk/aws-codepipeline-actions';
+import * as route53 from '@aws-cdk/aws-route53';
+import * as acm from '@aws-cdk/aws-certificatemanager';
+import * as cloudfront from '@aws-cdk/aws-cloudfront';
+import * as targets from '@aws-cdk/aws-route53-targets/lib';
 
 export interface PipelineProps extends CDK.StackProps {
   github: {
@@ -20,6 +24,45 @@ export class Pipeline extends CDK.Stack {
       websiteIndexDocument: 'index.html',
       websiteErrorDocument: 'error.html',
       publicReadAccess: true,
+    });
+
+    // Route 53 Information
+    const zone = route53.HostedZone.fromLookup(this, 'Zone', { domainName: 'willkronberg.dev' });
+    const siteDomain = 'willkronberg.dev';
+
+    // TLS certificate
+    const { certificateArn } = new acm.DnsValidatedCertificate(this, 'SiteCertificate', {
+      domainName: siteDomain,
+      hostedZone: zone,
+    });
+
+    new CDK.CfnOutput(this, 'Certificate', { value: certificateArn });
+
+    // CloudFront distribution that provides HTTPS
+    const distribution = new cloudfront.CloudFrontWebDistribution(this, 'SiteDistribution', {
+      aliasConfiguration: {
+        acmCertRef: certificateArn,
+        names: [siteDomain],
+        sslMethod: cloudfront.SSLMethod.SNI,
+        securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_1_2016,
+      },
+      originConfigs: [
+        {
+          s3OriginSource: {
+            s3BucketSource: bucketWebsite,
+          },
+          behaviors: [{ isDefaultBehavior: true }],
+        },
+      ],
+    });
+
+    new CDK.CfnOutput(this, 'DistributionId', { value: distribution.distributionId });
+
+    // Route53 alias record for the CloudFront distribution
+    new route53.ARecord(this, 'SiteAliasRecord', {
+      recordName: siteDomain,
+      target: route53.AddressRecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)),
+      zone,
     });
 
     // AWS CodeBuild artifacts
@@ -56,7 +99,7 @@ export class Pipeline extends CDK.Stack {
           actionName: 'Website',
           project: new CodeBuild.PipelineProject(this, 'BuildWebsite', {
             projectName: 'Website',
-            buildSpec: CodeBuild.BuildSpec.fromSourceFilename('./infra/buildspec.yml'),
+            buildSpec: CodeBuild.BuildSpec.fromSourceFilename('./infrastructure/buildspec.yml'),
           }),
           input: outputSources,
           outputs: [outputWebsite],
@@ -64,7 +107,7 @@ export class Pipeline extends CDK.Stack {
       ],
     });
 
-    // AWS CodePipeline stage to deployt CRA website and CDK resources
+    // AWS CodePipeline stage to deploy the CRA website and CDK resources
     pipeline.addStage({
       stageName: 'Deploy',
       actions: [
@@ -77,7 +120,7 @@ export class Pipeline extends CDK.Stack {
       ],
     });
 
-    new CDK.CfnOutput(this, 'WebsiteURL', {
+    new CDK.CfnOutput(this, 'BucketWebsiteURL', {
       value: bucketWebsite.bucketWebsiteUrl,
       description: 'Website URL',
     });

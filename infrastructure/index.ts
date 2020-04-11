@@ -6,9 +6,9 @@ const app = new cdk.App();
 const config = {
   github: {
     owner: 'willkronberg',
-    repository: 'cra-pipeline',
+    repository: 'nonprofit-outreach-manager-static-website',
   },
-  env: { region: 'us-west-2' },
+  env: { account: '#####', region: 'us-east-1' },
 };
 
 // eslint-disable-next-line no-new

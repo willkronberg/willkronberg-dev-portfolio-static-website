@@ -10,7 +10,9 @@
 
 # production
 /build
-/cdk.out
+/cdk.out*
+/cdk.context.json
+.idea
 
 # misc
 .DS_Store
