@@ -1,3 +1,4 @@
+/* eslint-disable no-new */
 import * as CDK from '@aws-cdk/core';
 import * as CodeBuild from '@aws-cdk/aws-codebuild';
 import * as S3 from '@aws-cdk/aws-s3';

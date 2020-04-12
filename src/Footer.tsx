@@ -10,6 +10,7 @@ import Avatar from '@material-ui/core/Avatar';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import SocialMediaIcon from './SocialMediaIcon';
 
 function Copyright() {
   return (
@@ -42,11 +43,6 @@ const useStyles = makeStyles((theme) => ({
     flexBasis: '100%',
     height: 0,
   },
-  socialMediaIcon: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    marginTop: theme.spacing(2),
-  },
 }));
 
 export default function Footer(props: FooterProps) {
@@ -58,15 +54,15 @@ export default function Footer(props: FooterProps) {
         <div className={classes.root}>
           <Avatar className={classes.largeAvatar} alt="Will Kronberg" src="https://pbs.twimg.com/profile_images/1158534997810089984/2Txvs8UJ_400x400.jpg" />
           <div className={classes.break} />
-          <div className={classes.socialMediaIcon} onClick={(_) => window.open('https://github.com/willkronberg', '_blank')}>
+          <SocialMediaIcon link="https://github.com/willkronberg">
             <GitHubIcon />
-          </div>
-          <div className={classes.socialMediaIcon} onClick={(_) => window.open('https://www.linkedin.com/in/kronbew/', '_blank')}>
+          </SocialMediaIcon>
+          <SocialMediaIcon link="https://www.linkedin.com/in/kronbew/">
             <LinkedInIcon />
-          </div>
-          <div className={classes.socialMediaIcon} onClick={(_) => window.open('https://twitter.com/kron_dev', '_blank')}>
+          </SocialMediaIcon>
+          <SocialMediaIcon link="https://twitter.com/kron_dev">
             <TwitterIcon />
-          </div>
+          </SocialMediaIcon>
         </div>
         <Copyright />
       </Container>
