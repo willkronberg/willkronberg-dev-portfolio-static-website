@@ -1,3 +1,6 @@
+/* eslint-disable arrow-parens */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
@@ -55,13 +58,13 @@ export default function Footer(props: FooterProps) {
         <div className={classes.root}>
           <Avatar className={classes.largeAvatar} alt="Will Kronberg" src="https://pbs.twimg.com/profile_images/1158534997810089984/2Txvs8UJ_400x400.jpg" />
           <div className={classes.break} />
-          <div className={classes.socialMediaIcon}>
+          <div className={classes.socialMediaIcon} onClick={(_) => window.open('https://github.com/willkronberg', '_blank')}>
             <GitHubIcon />
           </div>
-          <div className={classes.socialMediaIcon}>
+          <div className={classes.socialMediaIcon} onClick={(_) => window.open('https://www.linkedin.com/in/kronbew/', '_blank')}>
             <LinkedInIcon />
           </div>
-          <div className={classes.socialMediaIcon}>
+          <div className={classes.socialMediaIcon} onClick={(_) => window.open('https://twitter.com/kron_dev', '_blank')}>
             <TwitterIcon />
           </div>
         </div>
