@@ -14,14 +14,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SocialMediaIcon(props: SocialMediaIconProps) {
   const classes = useStyles();
-  const { children } = props;
+  const { children, link } = props;
   const [childColor, setChildColor] = useState<string>('inherit');
   const clonedChildren = React.isValidElement(children) ? React.cloneElement(children, { color: childColor }) : children;
 
   return (
     <div
       className={classes.socialMediaIcon}
-      onClick={(_) => window.open('https://github.com/willkronberg', '_blank')}
+      onClick={(_) => window.open(link, '_blank')}
       onMouseEnter={() => setChildColor('action')}
       onMouseLeave={() => setChildColor('inherit')}
     >
