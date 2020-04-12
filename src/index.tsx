@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import thunk from 'redux-thunk';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { rootReducer } from './redux';
+import 'typeface-roboto';
 
 const store = createStore(rootReducer, {}, composeWithDevTools(applyMiddleware(thunk)));
 

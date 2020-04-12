@@ -33,6 +33,9 @@
     "comma-dangle": "off",
     "no-unused-vars": "off",
     "import/no-extraneous-dependencies": "off",
-    "max-len": ["error", { "code": 120 }]
+    "max-len": ["error", { "code": 160 }],
+    "react/jsx-props-no-spreading": "off",
+    "object-curly-newline": "off",
+    "jsx-a11y/accessible-emoji": "off"
   }
 }
