@@ -39,12 +39,14 @@ const featuredPosts = [
   },
 ];
 
-export default function Blog() {
+export default function Blog(props: BlogProps) {
+  const { isDarkMode, setIsDarkMode } = props;
+
   return (
     <>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Header title="willkronberg.dev" sections={sections} />
+        <Header title="willkronberg.dev" sections={sections} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
           <Grid container spacing={4}>
@@ -57,4 +59,9 @@ export default function Blog() {
       <Footer />
     </>
   );
+}
+
+interface BlogProps {
+  isDarkMode: boolean;
+  setIsDarkMode: (isDarkMode: boolean) => void;
 }

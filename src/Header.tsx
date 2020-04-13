@@ -1,7 +1,10 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header(props: HeaderProps) {
   const classes = useStyles();
-  const { sections, title } = props;
+  const { sections, title, isDarkMode, setIsDarkMode } = props;
 
   return (
     <>
@@ -31,6 +34,9 @@ export default function Header(props: HeaderProps) {
         <Typography component="h2" variant="h5" color="inherit" align="center" noWrap className={classes.toolbarTitle}>
           {title}
         </Typography>
+        <div onClick={() => setIsDarkMode(!isDarkMode)}>
+          <Brightness4Icon fontSize="large" />
+        </div>
       </Toolbar>
       <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
         {sections.map((section) => (
@@ -51,4 +57,6 @@ export interface Section {
 interface HeaderProps {
   sections: Section[];
   title: string;
+  isDarkMode: boolean;
+  setIsDarkMode: (isDarkMode: boolean) => void;
 }
