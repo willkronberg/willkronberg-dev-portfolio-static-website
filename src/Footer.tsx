@@ -6,10 +6,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import TwitterIcon from '@material-ui/icons/Twitter';
 import SocialMediaIcon from './SocialMediaIcon';
 
 function Copyright() {
@@ -52,16 +50,12 @@ export default function Footer(props: FooterProps) {
     <footer className={classes.footer}>
       <Container maxWidth="lg">
         <div className={classes.root}>
-          <Avatar className={classes.largeAvatar} alt="Will Kronberg" src="https://pbs.twimg.com/profile_images/1158534997810089984/2Txvs8UJ_400x400.jpg" />
           <div className={classes.break} />
           <SocialMediaIcon link="https://github.com/willkronberg">
             <GitHubIcon />
           </SocialMediaIcon>
-          <SocialMediaIcon link="https://www.linkedin.com/in/kronbew/">
+          <SocialMediaIcon link="https://www.linkedin.com/in/willkronberg/">
             <LinkedInIcon />
-          </SocialMediaIcon>
-          <SocialMediaIcon link="https://twitter.com/kron_dev">
-            <TwitterIcon />
           </SocialMediaIcon>
         </div>
         <Copyright />
