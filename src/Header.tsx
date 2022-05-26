@@ -6,6 +6,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Link from '@material-ui/core/Link';
+import { RootState } from './redux';
+import { Dispatch } from 'redux';
+import { PreferencesState, toggleDarkMode } from './redux/modules/preferences';
+import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -24,9 +28,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header(props: HeaderProps) {
+interface StateProps {
+  preferences: PreferencesState
+}
+
+interface DispatchProps {
+  toggleDarkMode: () => void
+}
+
+type Props = StateProps & DispatchProps & HeaderProps;
+
+export const Header = (props: Props) => {
   const classes = useStyles();
-  const { sections, title, isDarkMode, setIsDarkMode } = props;
+  const { sections, title } = props;
 
   return (
     <>
@@ -34,7 +48,7 @@ export default function Header(props: HeaderProps) {
         <Typography component="h2" variant="h5" color="inherit" align="center" noWrap className={classes.toolbarTitle}>
           {title}
         </Typography>
-        <div onClick={() => setIsDarkMode(!isDarkMode)}>
+        <div onClick={() => props.toggleDarkMode()}>
           <Brightness4Icon fontSize="large" />
         </div>
       </Toolbar>
@@ -57,6 +71,14 @@ export interface Section {
 interface HeaderProps {
   sections: Section[];
   title: string;
-  isDarkMode: boolean;
-  setIsDarkMode: (isDarkMode: boolean) => void;
 }
+
+const mapStateToProps = (state: RootState) => ({
+  preferences: state.preferences,
+})
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  toggleDarkMode: () => dispatch(toggleDarkMode())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

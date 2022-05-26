@@ -21,14 +21,12 @@ const featuredPosts = [
   },
 ];
 
-export default function Blog(props: BlogProps) {
-  const { isDarkMode, setIsDarkMode } = props;
-
+export const Blog = () => {
   return (
     <>
       <CssBaseline />
       <Container maxWidth="lg">
-        <Header title="willkronberg.dev" sections={sections} isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+        <Header title="willkronberg.dev" sections={sections} />
         <main>
           <Grid container spacing={4}>
             {featuredPosts.map((post) => (
@@ -42,7 +40,4 @@ export default function Blog(props: BlogProps) {
   );
 }
 
-interface BlogProps {
-  isDarkMode: boolean;
-  setIsDarkMode: (isDarkMode: boolean) => void;
-}
+export default Blog;
