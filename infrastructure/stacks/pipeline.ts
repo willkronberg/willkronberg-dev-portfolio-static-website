@@ -124,12 +124,14 @@ export class Pipeline extends CDK.Stack {
           actionName: 'Website',
           input: outputWebsite,
           bucket: bucketWebsite,
+          runOrder: 1,
         }),
         // Invalidate Cache
         new CodePipelineAction.CodeBuildAction({
           actionName: 'InvalidateCache',
           project: cloudfrontInvalidator.invalidateProject,
           input: outputWebsite,
+          runOrder: 2,
         }),
       ],
     });
