@@ -14,7 +14,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "types": ["cypress", "mocha", "jest", "node"]
+    "types": ["cypress", "mocha", "jest", "node"],
+    "skipDefaultLibCheck": true,
   },
   "include": ["src", "custom.d.ts", "**/*.ts", "cypress/integration/spec.js"]
 }
