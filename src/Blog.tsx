@@ -7,7 +7,7 @@ import FeaturedPost from './FeaturedPost';
 import Footer from './Footer';
 
 const sections: Section[] = [
-  { title: 'Home', url: '/',  },
+  { title: 'Home', url: '/' },
   { title: 'About Me', url: '/aboutme' },
 ];
 
@@ -22,6 +22,8 @@ const featuredPosts = [
 ];
 
 export const Blog = () => {
+  console.log('hello, world');
+
   return (
     <>
       <CssBaseline />
@@ -38,6 +40,6 @@ export const Blog = () => {
       <Footer />
     </>
   );
-}
+};
 
 export default Blog;
