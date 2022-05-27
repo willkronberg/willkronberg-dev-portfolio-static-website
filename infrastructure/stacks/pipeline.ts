@@ -1,14 +1,9 @@
 /* eslint-disable no-new */
 import * as CDK from '@aws-cdk/core';
 import * as CodeBuild from '@aws-cdk/aws-codebuild';
-import * as S3 from '@aws-cdk/aws-s3';
 import * as CodePipeline from '@aws-cdk/aws-codepipeline';
 import * as CodePipelineAction from '@aws-cdk/aws-codepipeline-actions';
-import * as route53 from '@aws-cdk/aws-route53';
-import * as acm from '@aws-cdk/aws-certificatemanager';
-import * as cloudfront from '@aws-cdk/aws-cloudfront';
-import * as targets from '@aws-cdk/aws-route53-targets/lib';
-import { CloudfrontInvalidator } from '../constructs/cloudfrontInvalidator';
+import { StaticWebsite } from '../constructs/static_website';
 
 export interface PipelineProps extends CDK.StackProps {
   github: {
@@ -21,57 +16,10 @@ export class Pipeline extends CDK.Stack {
   constructor(scope: CDK.App, id: string, props: PipelineProps) {
     super(scope, id, props);
 
-    // Amazon S3 bucket to store CRA website
-    const bucketWebsite = new S3.Bucket(this, 'Files', {
-      websiteIndexDocument: 'index.html',
-      websiteErrorDocument: 'error.html',
-      publicReadAccess: true,
-    });
-
-    // Route 53 Information
-    const zone = route53.HostedZone.fromLookup(this, 'Zone', { domainName: 'willkronberg.dev' });
-    const siteDomain = 'willkronberg.dev';
-
-    // TLS certificate
-    const { certificateArn } = new acm.DnsValidatedCertificate(this, 'SiteCertificate', {
-      domainName: siteDomain,
-      hostedZone: zone,
-    });
-
-    new CDK.CfnOutput(this, 'Certificate', { value: certificateArn });
-
-    // CloudFront distribution that provides HTTPS
-    const distribution = new cloudfront.CloudFrontWebDistribution(this, 'SiteDistribution', {
-      aliasConfiguration: {
-        acmCertRef: certificateArn,
-        names: [siteDomain],
-        sslMethod: cloudfront.SSLMethod.SNI,
-        securityPolicy: cloudfront.SecurityPolicyProtocol.TLS_V1_1_2016,
-      },
-      originConfigs: [
-        {
-          s3OriginSource: {
-            s3BucketSource: bucketWebsite,
-          },
-          behaviors: [{ isDefaultBehavior: true }],
-        },
-      ],
-    });
-
-    new CDK.CfnOutput(this, 'DistributionId', { value: distribution.distributionId });
-
-    const cloudfrontInvalidator = new CloudfrontInvalidator(this, 'CloudfrontInvalidator', {
+    const staticWebsite = new StaticWebsite(this, "StaticWebsite", {
       accountId: this.account,
-      deploymentBucket: bucketWebsite,
-      distribution: distribution,
-    });
-
-    // Route53 alias record for the CloudFront distribution
-    new route53.ARecord(this, 'SiteAliasRecord', {
-      recordName: siteDomain,
-      target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)),
-      zone,
-    });
+      domainName: "willkronberg.dev"
+    })
 
     // AWS CodeBuild artifacts
     const outputSources = new CodePipeline.Artifact();
@@ -123,22 +71,17 @@ export class Pipeline extends CDK.Stack {
         new CodePipelineAction.S3DeployAction({
           actionName: 'Website',
           input: outputWebsite,
-          bucket: bucketWebsite,
+          bucket: staticWebsite.deploymentBucket,
           runOrder: 1,
         }),
         // Invalidate Cache
         new CodePipelineAction.CodeBuildAction({
           actionName: 'InvalidateCache',
-          project: cloudfrontInvalidator.invalidateProject,
+          project: staticWebsite.cloudfrontDistro.invalidateProject,
           input: outputWebsite,
           runOrder: 2,
         }),
       ],
-    });
-
-    new CDK.CfnOutput(this, 'BucketWebsiteURL', {
-      value: bucketWebsite.bucketWebsiteUrl,
-      description: 'Website URL',
     });
   }
 }

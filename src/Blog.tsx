@@ -22,8 +22,6 @@ const featuredPosts = [
 ];
 
 export const Blog = () => {
-  console.log('hello, world');
-
   return (
     <>
       <CssBaseline />
