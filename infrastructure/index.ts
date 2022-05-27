@@ -8,7 +8,7 @@ const config = {
     owner: 'willkronberg',
     repository: 'willkronberg-dev-portfolio-static-website',
   },
-  env: { account: 'aws_account_number', region: 'us-east-1' },
+  env: { account: '406037948983', region: 'us-east-1' },
 };
 
 // eslint-disable-next-line no-new

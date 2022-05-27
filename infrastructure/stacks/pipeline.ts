@@ -8,6 +8,7 @@ import * as route53 from '@aws-cdk/aws-route53';
 import * as acm from '@aws-cdk/aws-certificatemanager';
 import * as cloudfront from '@aws-cdk/aws-cloudfront';
 import * as targets from '@aws-cdk/aws-route53-targets/lib';
+import { CloudfrontInvalidator } from '../constructs/cloudfrontInvalidator';
 
 export interface PipelineProps extends CDK.StackProps {
   github: {
@@ -59,10 +60,16 @@ export class Pipeline extends CDK.Stack {
 
     new CDK.CfnOutput(this, 'DistributionId', { value: distribution.distributionId });
 
+    const cloudfrontInvalidator = new CloudfrontInvalidator(this, 'CloudfrontInvalidator', {
+      accountId: this.account,
+      deploymentBucket: bucketWebsite,
+      distribution: distribution,
+    });
+
     // Route53 alias record for the CloudFront distribution
     new route53.ARecord(this, 'SiteAliasRecord', {
       recordName: siteDomain,
-      target: route53.AddressRecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)),
+      target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(distribution)),
       zone,
     });
 
@@ -117,6 +124,12 @@ export class Pipeline extends CDK.Stack {
           actionName: 'Website',
           input: outputWebsite,
           bucket: bucketWebsite,
+        }),
+        // Invalidate Cache
+        new CodePipelineAction.CodeBuildAction({
+          actionName: 'InvalidateCache',
+          project: cloudfrontInvalidator.invalidateProject,
+          input: outputWebsite,
         }),
       ],
     });
