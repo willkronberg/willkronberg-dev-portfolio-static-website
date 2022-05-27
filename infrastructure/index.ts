@@ -1,7 +1,7 @@
-import * as cdk from '@aws-cdk/core';
+import { App } from 'aws-cdk-lib';
 import { Pipeline } from './stacks/pipeline';
 
-const app = new cdk.App();
+const app = new App();
 
 const config = {
   github: {

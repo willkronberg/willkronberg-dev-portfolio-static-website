@@ -1,9 +1,10 @@
-import { CfnOutput, Construct } from '@aws-cdk/core';
-import { Bucket } from '@aws-cdk/aws-s3';
-import { ARecord, HostedZone, IHostedZone, RecordTarget } from '@aws-cdk/aws-route53';
-import { DnsValidatedCertificate } from '@aws-cdk/aws-certificatemanager';
+import { CfnOutput } from 'aws-cdk-lib';
+import { Bucket } from 'aws-cdk-lib/aws-s3';
+import { ARecord, HostedZone, IHostedZone, RecordTarget } from 'aws-cdk-lib/aws-route53';
+import { DnsValidatedCertificate } from 'aws-cdk-lib/aws-certificatemanager';
 import { CloudfrontDistro } from './cloudfront_distro';
-import { CloudFrontTarget } from '@aws-cdk/aws-route53-targets';
+import { CloudFrontTarget } from 'aws-cdk-lib/aws-route53-targets';
+import { Construct } from 'constructs';
 
 interface StaticWebsiteProps {
   accountId: string;
@@ -36,12 +37,12 @@ export class StaticWebsite extends Construct {
     });
 
     // Cloudfront Distribution
-    this.cloudfrontDistro = new CloudfrontDistro(this, "CloudfrontDistro", {
+    this.cloudfrontDistro = new CloudfrontDistro(this, 'CloudfrontDistro', {
       accountId: props.accountId,
       deploymentBucket: this.deploymentBucket,
       domainName: props.domainName,
       sslCertificate: this.sslCertificate,
-    })
+    });
 
     // Route53 alias record for the CloudFront distribution
     new ARecord(this, 'SiteAliasRecord', {
@@ -49,7 +50,6 @@ export class StaticWebsite extends Construct {
       target: RecordTarget.fromAlias(new CloudFrontTarget(this.cloudfrontDistro.distribution)),
       zone: this.hostedZone,
     });
-
 
     new CfnOutput(this, 'CertificateArn', { value: this.sslCertificate.certificateArn });
   }

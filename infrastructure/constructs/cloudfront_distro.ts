@@ -1,9 +1,10 @@
-import { CfnOutput, Construct } from '@aws-cdk/core';
-import { ICertificate } from '@aws-cdk/aws-certificatemanager';
-import { PolicyStatement } from '@aws-cdk/aws-iam';
-import { CloudFrontWebDistribution, SSLMethod, SecurityPolicyProtocol } from '@aws-cdk/aws-cloudfront';
-import { IBucket } from '@aws-cdk/aws-s3';
-import { BuildSpec, PipelineProject } from '@aws-cdk/aws-codebuild';
+import { CfnOutput } from 'aws-cdk-lib';
+import { ICertificate } from 'aws-cdk-lib/aws-certificatemanager';
+import { PolicyStatement } from 'aws-cdk-lib/aws-iam';
+import { CloudFrontWebDistribution, SSLMethod, SecurityPolicyProtocol } from 'aws-cdk-lib/aws-cloudfront';
+import { IBucket } from 'aws-cdk-lib/aws-s3';
+import { BuildSpec, PipelineProject } from 'aws-cdk-lib/aws-codebuild';
+import { Construct } from 'constructs';
 
 interface CloudfrontDistroProps {
   accountId: string;
@@ -20,11 +21,13 @@ export class CloudfrontDistro extends Construct {
     super(scope, id);
 
     this.distribution = new CloudFrontWebDistribution(this, 'SiteDistribution', {
-      aliasConfiguration: {
-        acmCertRef: props.sslCertificate.certificateArn,
-        names: [props.domainName],
-        sslMethod: SSLMethod.SNI,
-        securityPolicy: SecurityPolicyProtocol.TLS_V1_1_2016,
+      viewerCertificate: {
+        aliases: [props.domainName],
+        props: {
+          acmCertificateArn: props.sslCertificate.certificateArn,
+          sslSupportMethod: SSLMethod.SNI,
+          minimumProtocolVersion: SecurityPolicyProtocol.TLS_V1_2_2021,
+        },
       },
       originConfigs: [
         {

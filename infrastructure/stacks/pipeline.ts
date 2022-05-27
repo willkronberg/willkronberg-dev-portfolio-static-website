@@ -1,25 +1,25 @@
 /* eslint-disable no-new */
-import * as CDK from '@aws-cdk/core';
-import * as CodeBuild from '@aws-cdk/aws-codebuild';
-import * as CodePipeline from '@aws-cdk/aws-codepipeline';
-import * as CodePipelineAction from '@aws-cdk/aws-codepipeline-actions';
+import * as CodeBuild from 'aws-cdk-lib/aws-codebuild';
+import * as CodePipeline from 'aws-cdk-lib/aws-codepipeline';
+import * as CodePipelineAction from 'aws-cdk-lib/aws-codepipeline-actions';
+import { App, SecretValue, Stack, StackProps } from 'aws-cdk-lib';
 import { StaticWebsite } from '../constructs/static_website';
 
-export interface PipelineProps extends CDK.StackProps {
+export interface PipelineProps extends StackProps {
   github: {
     owner: string;
     repository: string;
   };
 }
 
-export class Pipeline extends CDK.Stack {
-  constructor(scope: CDK.App, id: string, props: PipelineProps) {
+export class Pipeline extends Stack {
+  constructor(scope: App, id: string, props: PipelineProps) {
     super(scope, id, props);
 
-    const staticWebsite = new StaticWebsite(this, "StaticWebsite", {
+    const staticWebsite = new StaticWebsite(this, 'StaticWebsite', {
       accountId: this.account,
-      domainName: "willkronberg.dev"
-    })
+      domainName: 'willkronberg.dev',
+    });
 
     // AWS CodeBuild artifacts
     const outputSources = new CodePipeline.Artifact();
@@ -39,7 +39,7 @@ export class Pipeline extends CDK.Stack {
           actionName: 'Checkout',
           owner: props.github.owner,
           repo: props.github.repository,
-          oauthToken: CDK.SecretValue.secretsManager('GitHubToken'),
+          oauthToken: SecretValue.secretsManager('GitHubToken'),
           output: outputSources,
           trigger: CodePipelineAction.GitHubTrigger.WEBHOOK,
         }),
@@ -81,6 +81,13 @@ export class Pipeline extends CDK.Stack {
           input: outputWebsite,
           runOrder: 2,
         }),
+
+        // new CodePipelineAction.LambdaInvokeAction({
+        //   actionName: 'InvalidateCacheAsync',
+        //   lambda: '',
+        //   input: outputWebsite,
+        //   runOrder: 2,
+        // }),
       ],
     });
   }
