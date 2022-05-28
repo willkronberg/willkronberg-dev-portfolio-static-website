@@ -6,7 +6,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles({
   card: {
@@ -44,9 +43,7 @@ export default function FeaturedPost(props: FeaturedPostProps) {
               </Typography>
             </CardContent>
           </div>
-          <Hidden xsDown>
-            <CardMedia className={classes.cardMedia} image={post.image} title={post.imageText} />
-          </Hidden>
+          <CardMedia className={classes.cardMedia} image={post.image} title={post.imageText} />
         </Card>
       </CardActionArea>
     </Grid>

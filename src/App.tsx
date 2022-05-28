@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { RootState } from './redux';
 import { PreferencesState, toggleDarkMode } from './redux/modules/preferences';
@@ -25,7 +25,7 @@ type Props = StateProps & DispatchProps;
 export const App = (props: Props) => {
   const theme = React.useMemo(
     () =>
-      createMuiTheme({
+      createTheme({
         palette: {
           type: props.preferences.isDarkModeEnabled ? 'dark' : 'light',
         },

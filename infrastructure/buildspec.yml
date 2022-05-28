@@ -6,9 +6,11 @@ phases:
       nodejs: 12
     commands:
       - npm install
-  # pre_build:
-  #   commands:
-  #     - npm test
+  pre_build:
+    commands:
+      - npm test
+      - echo "NPM Tests Complete"
+      - exit 0
   build:
     commands:
       - npm run-script build

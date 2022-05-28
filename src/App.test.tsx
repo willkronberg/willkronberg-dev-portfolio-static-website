@@ -4,6 +4,7 @@ import { App } from './App';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import '@testing-library/jest-dom/extend-expect';
 
 const mockStore = configureStore([]);
 
@@ -21,7 +22,8 @@ test('renders the web page', () => {
       </Provider>
     </BrowserRouter>
   );
+
   const linkElement = getByText(/willkronberg.dev/i);
-  1;
+
   expect(linkElement).toBeInTheDocument();
 });
