@@ -43,8 +43,8 @@ export const App = (props: StateProps) => {
               <Route path="/aboutme" element={<AboutMe />} />
             </Routes>
           </main>
+          <Footer />
         </Container>
-        <Footer />
       </ThemeProvider>
     </div>
   );

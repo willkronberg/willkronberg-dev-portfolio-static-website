@@ -1,3 +1,4 @@
+/* eslint-disable no-await-in-loop */
 const aws = require('aws-sdk');
 
 exports.handler = async (event) => {

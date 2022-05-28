@@ -15,6 +15,7 @@ interface CloudfrontDistroProps {
 
 export class CloudfrontDistro extends Construct {
   public readonly distribution: CloudFrontWebDistribution;
+
   public readonly invalidateProject: PipelineProject;
 
   constructor(scope: Construct, id: string, props: CloudfrontDistroProps) {
@@ -37,13 +38,28 @@ export class CloudfrontDistro extends Construct {
           behaviors: [{ isDefaultBehavior: true }],
         },
       ],
+      errorConfigurations: [
+        {
+          errorCode: 403,
+          responseCode: 200,
+          responsePagePath: '/index.html',
+          errorCachingMinTtl: 10,
+        },
+        {
+          errorCode: 404,
+          responseCode: 200,
+          responsePagePath: '/index.html',
+          errorCachingMinTtl: 10,
+        },
+      ],
     });
 
-    this.invalidateProject = new PipelineProject(this, `InvalidateProject`, {
+    this.invalidateProject = new PipelineProject(this, 'InvalidateProject', {
       buildSpec: BuildSpec.fromObject({
         version: '0.2',
         phases: {
           build: {
+            // eslint-disable-next-line no-template-curly-in-string
             commands: ['aws cloudfront create-invalidation --distribution-id ${CLOUDFRONT_ID} --paths "/*"'],
           },
         },
@@ -64,3 +80,5 @@ export class CloudfrontDistro extends Construct {
     new CfnOutput(this, 'DistributionId', { value: this.distribution.distributionId });
   }
 }
+
+export default CloudfrontDistro;

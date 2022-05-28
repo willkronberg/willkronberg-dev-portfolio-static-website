@@ -1,6 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -8,6 +9,7 @@ import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Link from '@material-ui/core/Link';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { RootState } from '../redux';
 import { toggleDarkMode } from '../redux/modules/preferences';
 
@@ -36,6 +38,7 @@ type Props = DispatchProps & HeaderProps;
 
 export const Header = (props: Props) => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const { sections, title } = props;
 
   return (
@@ -50,7 +53,7 @@ export const Header = (props: Props) => {
       </Toolbar>
       <Toolbar component="nav" variant="dense" className={classes.toolbarSecondary}>
         {sections.map((section) => (
-          <Link color="inherit" noWrap key={section.title} variant="body2" href={section.url} className={classes.toolbarLink}>
+          <Link color="inherit" noWrap key={section.title} variant="body2" href="#" className={classes.toolbarLink} onClick={() => navigate(section.url)}>
             {section.title}
           </Link>
         ))}

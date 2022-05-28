@@ -2,9 +2,9 @@ import { CfnOutput } from 'aws-cdk-lib';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { ARecord, HostedZone, IHostedZone, RecordTarget } from 'aws-cdk-lib/aws-route53';
 import { DnsValidatedCertificate } from 'aws-cdk-lib/aws-certificatemanager';
-import { CloudfrontDistro } from './cloudfront_distro';
 import { CloudFrontTarget } from 'aws-cdk-lib/aws-route53-targets';
 import { Construct } from 'constructs';
+import { CloudfrontDistro } from './cloudfront_distro';
 
 interface StaticWebsiteProps {
   accountId: string;
@@ -13,8 +13,11 @@ interface StaticWebsiteProps {
 
 export class StaticWebsite extends Construct {
   public readonly hostedZone: IHostedZone;
+
   public readonly sslCertificate: DnsValidatedCertificate;
+
   public readonly deploymentBucket: Bucket;
+
   public readonly cloudfrontDistro: CloudfrontDistro;
 
   constructor(scope: Construct, id: string, props: StaticWebsiteProps) {
@@ -54,3 +57,5 @@ export class StaticWebsite extends Construct {
     new CfnOutput(this, 'CertificateArn', { value: this.sslCertificate.certificateArn });
   }
 }
+
+export default StaticWebsite;

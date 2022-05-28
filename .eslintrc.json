@@ -39,6 +39,7 @@
     "object-curly-newline": "off",
     "jsx-a11y/accessible-emoji": "off",
     "react/destructuring-assignment": "off",
-    "implicit-arrow-linebreak": "off"
+    "implicit-arrow-linebreak": "off",
+    "no-new": "off"
   }
 }
