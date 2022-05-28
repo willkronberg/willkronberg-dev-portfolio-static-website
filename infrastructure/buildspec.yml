@@ -8,9 +8,7 @@ phases:
       - npm install
   pre_build:
     commands:
-      - npm test
-      - echo "NPM Tests Complete"
-      - exit 0
+      - npm test -- --watchAll=false
   build:
     commands:
       - npm run-script build
