@@ -2,12 +2,11 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { RootState } from './redux';
-import { PreferencesState, toggleDarkMode } from './redux/modules/preferences';
-import { Dispatch } from 'redux';
-import AboutMe from './components/AboutMe';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
+import { RootState } from './redux';
+import { PreferencesState } from './redux/modules/preferences';
+import AboutMe from './components/AboutMe';
 import Header, { Section } from './components/Header';
 import Footer from './components/Footer';
 import Blog from './components/Blog';
@@ -16,13 +15,7 @@ interface StateProps {
   preferences: PreferencesState;
 }
 
-interface DispatchProps {
-  toggleDarkMode: () => void;
-}
-
-type Props = StateProps & DispatchProps;
-
-export const App = (props: Props) => {
+export const App = (props: StateProps) => {
   const theme = React.useMemo(
     () =>
       createTheme({
@@ -61,8 +54,4 @@ const mapStateToProps = (state: RootState): StateProps => ({
   preferences: state.preferences,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  toggleDarkMode: () => dispatch(toggleDarkMode()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, {})(App);

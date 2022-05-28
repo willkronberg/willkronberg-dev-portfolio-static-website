@@ -37,6 +37,8 @@
     "max-len": ["error", { "code": 160 }],
     "react/jsx-props-no-spreading": "off",
     "object-curly-newline": "off",
-    "jsx-a11y/accessible-emoji": "off"
+    "jsx-a11y/accessible-emoji": "off",
+    "react/destructuring-assignment": "off",
+    "implicit-arrow-linebreak": "off"
   }
 }

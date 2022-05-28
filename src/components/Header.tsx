@@ -6,10 +6,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Link from '@material-ui/core/Link';
-import { RootState } from '../redux';
 import { Dispatch } from 'redux';
-import { PreferencesState, toggleDarkMode } from '../redux/modules/preferences';
 import { connect } from 'react-redux';
+import { RootState } from '../redux';
+import { toggleDarkMode } from '../redux/modules/preferences';
 
 const useStyles = makeStyles((theme) => ({
   toolbar: {
@@ -28,15 +28,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface StateProps {
-  preferences: PreferencesState;
-}
-
 interface DispatchProps {
   toggleDarkMode: () => void;
 }
 
-type Props = StateProps & DispatchProps & HeaderProps;
+type Props = DispatchProps & HeaderProps;
 
 export const Header = (props: Props) => {
   const classes = useStyles();

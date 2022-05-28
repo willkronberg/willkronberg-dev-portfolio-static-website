@@ -7,11 +7,11 @@ import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage';
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import thunk from 'redux-thunk';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { rootReducer } from './redux';
 import 'typeface-roboto';
-import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 
 const persistConfig = {

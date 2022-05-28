@@ -3,12 +3,13 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 12
+      nodejs: 14
     commands:
       - npm install
   pre_build:
     commands:
-      - npm test -- --watchAll=false
+      - npm run lint
+      - npm run test:ci
   build:
     commands:
       - npm run-script build
