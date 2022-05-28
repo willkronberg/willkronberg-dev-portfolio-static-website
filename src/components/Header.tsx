@@ -6,9 +6,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Brightness4Icon from '@material-ui/icons/Brightness4';
 import Link from '@material-ui/core/Link';
-import { RootState } from './redux';
+import { RootState } from '../redux';
 import { Dispatch } from 'redux';
-import { PreferencesState, toggleDarkMode } from './redux/modules/preferences';
+import { PreferencesState, toggleDarkMode } from '../redux/modules/preferences';
 import { connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
@@ -29,11 +29,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface StateProps {
-  preferences: PreferencesState
+  preferences: PreferencesState;
 }
 
 interface DispatchProps {
-  toggleDarkMode: () => void
+  toggleDarkMode: () => void;
 }
 
 type Props = StateProps & DispatchProps & HeaderProps;
@@ -61,7 +61,7 @@ export const Header = (props: Props) => {
       </Toolbar>
     </>
   );
-}
+};
 
 export interface Section {
   title: string;
@@ -75,10 +75,10 @@ interface HeaderProps {
 
 const mapStateToProps = (state: RootState) => ({
   preferences: state.preferences,
-})
+});
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-  toggleDarkMode: () => dispatch(toggleDarkMode())
-})
+  toggleDarkMode: () => dispatch(toggleDarkMode()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
