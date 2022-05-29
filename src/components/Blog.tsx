@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import FeaturedPost from './FeaturedPost';
 
-export const Blog = () => {
+export const Blog: React.FC = () => {
   const featuredPosts = [
     {
       title: 'Coming Soon',

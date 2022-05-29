@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MainFeaturedPost(props: MainFeaturedPostProps) {
+export const MainFeaturedPost: React.FC<MainFeaturedPostProps> = (props: MainFeaturedPostProps) => {
   const classes = useStyles();
   const { post } = props;
 
@@ -61,8 +60,10 @@ export default function MainFeaturedPost(props: MainFeaturedPostProps) {
       </Grid>
     </Paper>
   );
-}
+};
 
-interface MainFeaturedPostProps {
+export interface MainFeaturedPostProps {
   post: Post;
 }
+
+export default MainFeaturedPost;

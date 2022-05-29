@@ -1,7 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -36,7 +33,7 @@ interface DispatchProps {
 
 type Props = DispatchProps & HeaderProps;
 
-export const Header = (props: Props) => {
+export const Header: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
   const navigate = useNavigate();
   const { sections, title } = props;
@@ -67,7 +64,7 @@ export interface Section {
   url: string;
 }
 
-interface HeaderProps {
+export interface HeaderProps {
   sections: Section[];
   title: string;
 }

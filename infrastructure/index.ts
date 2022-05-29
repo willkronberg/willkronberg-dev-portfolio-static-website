@@ -11,7 +11,6 @@ const config = {
   env: { account: '406037948983', region: 'us-east-1' },
 };
 
-// eslint-disable-next-line no-new
 new Pipeline(app, 'Pipeline', config);
 
 app.synth();

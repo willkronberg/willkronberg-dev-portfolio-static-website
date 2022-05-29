@@ -38,10 +38,12 @@ export const App = (props: StateProps) => {
         <Container maxWidth="lg">
           <Header title="willkronberg.dev" sections={sections} />
           <main>
-            <Routes>
-              <Route path="/" element={<Blog />} />
-              <Route path="/aboutme" element={<AboutMe />} />
-            </Routes>
+            <div>
+              <Routes>
+                <Route path="/" element={<Blog />} />
+                <Route path="/aboutme" element={<AboutMe />} />
+              </Routes>
+            </div>
           </main>
           <Footer />
         </Container>

@@ -1,12 +1,10 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import Avatar from '@material-ui/core/Avatar';
 import SocialMediaIcon from './SocialMediaIcon';
 
 function Copyright() {
@@ -42,13 +40,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Footer(props: FooterProps) {
+export const Footer: React.FC = () => {
   const classes = useStyles();
 
   return (
     <footer className={classes.footer}>
       <Container maxWidth="lg">
         <div className={classes.root}>
+          <Avatar className={classes.largeAvatar} alt="Will Kronberg" src="./will.jpg" />
           <div className={classes.break} />
           <SocialMediaIcon link="https://github.com/willkronberg">
             <GitHubIcon />
@@ -61,6 +60,6 @@ export default function Footer(props: FooterProps) {
       </Container>
     </footer>
   );
-}
+};
 
-interface FooterProps {}
+export default Footer;

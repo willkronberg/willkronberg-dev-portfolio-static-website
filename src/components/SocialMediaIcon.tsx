@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { ReactNode, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -12,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SocialMediaIcon(props: SocialMediaIconProps) {
+export const SocialMediaIcon: React.FC<SocialMediaIconProps> = (props: SocialMediaIconProps) => {
   const classes = useStyles();
   const { children, link } = props;
   const [childColor, setChildColor] = useState<string>('inherit');
@@ -28,9 +26,11 @@ export default function SocialMediaIcon(props: SocialMediaIconProps) {
       {clonedChildren}
     </div>
   );
-}
+};
 
-interface SocialMediaIconProps {
+export interface SocialMediaIconProps {
   children: ReactNode;
   link: string;
 }
+
+export default SocialMediaIcon;

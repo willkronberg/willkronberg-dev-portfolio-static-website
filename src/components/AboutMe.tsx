@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import FeaturedPost from './FeaturedPost';
 
-export const AmountMe = () => {
+export const AmountMe: React.FC = () => {
   const featuredPosts = [
     {
       title: 'About Me Coming Soon',

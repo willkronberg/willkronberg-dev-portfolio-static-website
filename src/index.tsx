@@ -1,11 +1,10 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';
 import { persistStore, persistReducer } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import thunk from 'redux-thunk';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
@@ -20,7 +19,13 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-const store = createStore(persistedReducer, {}, composeWithDevTools(applyMiddleware(thunk)));
+
+const store = configureStore({
+  reducer: persistedReducer,
+  devTools: true,
+  middleware: [thunk],
+});
+
 const persistor = persistStore(store);
 
 const container = document.getElementById('root');

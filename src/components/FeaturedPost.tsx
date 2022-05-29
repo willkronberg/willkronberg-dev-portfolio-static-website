@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function FeaturedPost(props: FeaturedPostProps) {
+export const FeaturedPost: React.FC<FeaturedPostProps> = (props: FeaturedPostProps) => {
   const classes = useStyles();
   const { post } = props;
 
@@ -48,7 +48,7 @@ export default function FeaturedPost(props: FeaturedPostProps) {
       </CardActionArea>
     </Grid>
   );
-}
+};
 
 export interface Post {
   title: string;
@@ -58,6 +58,8 @@ export interface Post {
   imageText?: string;
 }
 
-interface FeaturedPostProps {
+export interface FeaturedPostProps {
   post: Post;
 }
+
+export default FeaturedPost;
