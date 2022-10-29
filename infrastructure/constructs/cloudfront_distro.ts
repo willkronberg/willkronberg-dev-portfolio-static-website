@@ -29,7 +29,7 @@ export class CloudfrontDistro extends Construct {
       defaultAction: {
         allow: {},
       },
-      scope: 'REGIONAL',
+      scope: 'CLOUDFRONT',
       visibilityConfig: {
         cloudWatchMetricsEnabled: true,
         metricName: 'MetricForBlogWebACL',

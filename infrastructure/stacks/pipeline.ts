@@ -1,4 +1,5 @@
 import * as CodeBuild from 'aws-cdk-lib/aws-codebuild';
+import { BuildSpec, PipelineProject } from 'aws-cdk-lib/aws-codebuild';
 import * as CodePipeline from 'aws-cdk-lib/aws-codepipeline';
 import * as CodePipelineAction from 'aws-cdk-lib/aws-codepipeline-actions';
 import { App, SecretValue, Stack, StackProps } from 'aws-cdk-lib';
@@ -66,27 +67,36 @@ export class Pipeline extends Stack {
     pipeline.addStage({
       stageName: 'Deploy',
       actions: [
+        // Deploy Pipeline
+        new CodePipelineAction.CodeBuildAction({
+          actionName: 'DeployCDK',
+          project: new PipelineProject(this, 'InvalidateProject', {
+            buildSpec: BuildSpec.fromObject({
+              version: '0.2',
+              phases: {
+                build: {
+                  commands: ['cdk deploy Pipeline'],
+                },
+              },
+            }),
+          }),
+          input: outputWebsite,
+          runOrder: 1,
+        }),
         // AWS CodePipeline action to deploy CRA website to S3
         new CodePipelineAction.S3DeployAction({
           actionName: 'Website',
           input: outputWebsite,
           bucket: staticWebsite.deploymentBucket,
-          runOrder: 1,
+          runOrder: 2,
         }),
         // Invalidate Cache
         new CodePipelineAction.CodeBuildAction({
           actionName: 'InvalidateCache',
           project: staticWebsite.cloudfrontDistro.invalidateProject,
           input: outputWebsite,
-          runOrder: 2,
+          runOrder: 3,
         }),
-
-        // new CodePipelineAction.LambdaInvokeAction({
-        //   actionName: 'InvalidateCacheAsync',
-        //   lambda: '',
-        //   input: outputWebsite,
-        //   runOrder: 2,
-        // }),
       ],
     });
   }
