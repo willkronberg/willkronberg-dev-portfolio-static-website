@@ -67,35 +67,19 @@ export class Pipeline extends Stack {
     pipeline.addStage({
       stageName: 'Deploy',
       actions: [
-        // Deploy Pipeline
-        new CodePipelineAction.CodeBuildAction({
-          actionName: 'DeployCDK',
-          project: new PipelineProject(this, 'InvalidateProject', {
-            buildSpec: BuildSpec.fromObject({
-              version: '0.2',
-              phases: {
-                build: {
-                  commands: ['cdk deploy Pipeline'],
-                },
-              },
-            }),
-          }),
-          input: outputWebsite,
-          runOrder: 1,
-        }),
         // AWS CodePipeline action to deploy CRA website to S3
         new CodePipelineAction.S3DeployAction({
           actionName: 'Website',
           input: outputWebsite,
           bucket: staticWebsite.deploymentBucket,
-          runOrder: 2,
+          runOrder: 1,
         }),
         // Invalidate Cache
         new CodePipelineAction.CodeBuildAction({
           actionName: 'InvalidateCache',
           project: staticWebsite.cloudfrontDistro.invalidateProject,
           input: outputWebsite,
-          runOrder: 3,
+          runOrder: 2,
         }),
       ],
     });
