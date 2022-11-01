@@ -10,6 +10,7 @@ import AboutMe from './components/AboutMe';
 import Header, { Section } from './components/Header';
 import Footer from './components/Footer';
 import Blog from './components/Blog';
+import Inventory from './components/Inventory';
 
 interface StateProps {
   preferences: PreferencesState;
@@ -29,6 +30,7 @@ export const App = (props: StateProps) => {
   const sections: Section[] = [
     { title: 'Home', url: '/' },
     { title: 'About Me', url: '/aboutme' },
+    { title: 'Record Inventory', url: '/inventory' },
   ];
 
   return (
@@ -42,6 +44,7 @@ export const App = (props: StateProps) => {
               <Routes>
                 <Route path="/" element={<Blog />} />
                 <Route path="/aboutme" element={<AboutMe />} />
+                <Route path="/inventory" element={<Inventory />} />
               </Routes>
             </div>
           </main>

@@ -16,6 +16,7 @@ import './index.css';
 const persistConfig = {
   key: 'root',
   storage,
+  blacklist: ['inventory'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

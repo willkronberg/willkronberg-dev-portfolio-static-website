@@ -8,9 +8,9 @@ const initialState: PreferencesState = { isDarkModeEnabled: false };
 
 export const toggleDarkMode = () => typedAction('preferences/TOGGLE_DARK_MODE');
 
-export type PreferecesAction = ReturnType<typeof toggleDarkMode>;
+export type PreferencesAction = ReturnType<typeof toggleDarkMode>;
 
-export function preferencesReducer(state = initialState, action: PreferecesAction): PreferencesState {
+export function preferencesReducer(state = initialState, action: PreferencesAction): PreferencesState {
   switch (action.type) {
     case 'preferences/TOGGLE_DARK_MODE':
       return { isDarkModeEnabled: !state.isDarkModeEnabled };
