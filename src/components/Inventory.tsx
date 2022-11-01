@@ -2,9 +2,9 @@
 /* eslint-disable react/no-array-index-key */
 import React, { useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
+import { CircularProgress, Container } from '@material-ui/core';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import FeaturedPost, { Post } from './FeaturedPost';
 import { DiscogsState, fetchDiscogsInventory } from '../redux/modules/inventory';
 import { RootState } from '../redux';
 import Album from './Album';
@@ -34,15 +34,28 @@ export const Inventory: React.FC<Props> = (props) => {
     albums.push(album);
   }
 
-  return (
+  let element = (
     <>
-      <Grid container spacing={4}>
-        {albums.map((album, index) => (
-          <Album key={`${album.title}-${index}`} album={album} />
-        ))}
-      </Grid>
+      <Container>
+        <div style={{ minHeight: '500px' }}>
+          <CircularProgress />
+        </div>
+      </Container>
     </>
   );
+  if (!props.inventory.isLoading) {
+    element = (
+      <>
+        <Grid container spacing={4}>
+          {albums.map((album, index) => (
+            <Album key={`${album.title}-${index}`} album={album} />
+          ))}
+        </Grid>
+      </>
+    );
+  }
+
+  return element;
 };
 
 const mapStateToProps = (state: RootState) => ({
