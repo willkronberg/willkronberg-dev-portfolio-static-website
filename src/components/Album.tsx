@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import { Link } from '@material-ui/core';
 
 const useStyles = makeStyles({
   card: {
@@ -36,8 +37,12 @@ export const Album: React.FC<AlbumProps> = (props: AlbumProps) => {
                 {album.artist}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
-                {album.year}
+                {`Year: ${album.addedOn}`}
               </Typography>
+              <Typography variant="subtitle1" color="textSecondary">
+                {`Date Added: ${album.addedOn}`}
+              </Typography>
+              <Link href={album.link}>More Information</Link>
             </CardContent>
           </div>
         </Card>
@@ -50,6 +55,8 @@ export interface Album {
   title: string;
   artist: string;
   year: number;
+  addedOn: string;
+  link: string;
 }
 
 export interface AlbumProps {

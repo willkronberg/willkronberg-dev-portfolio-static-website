@@ -29,6 +29,8 @@ export const Inventory: React.FC<Props> = (props) => {
       artist: release.basic_information.artists[0].name,
       title: release.basic_information.title,
       year: release.basic_information.year,
+      addedOn: release.date_added,
+      link: release.basic_information.master_url,
     };
 
     albums.push(album);
