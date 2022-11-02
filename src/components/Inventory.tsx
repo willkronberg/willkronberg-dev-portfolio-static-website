@@ -38,13 +38,27 @@ export const Inventory: React.FC<Props> = (props) => {
 
   let element = (
     <>
-      <Container>
-        <div style={{ minHeight: '500px' }}>
-          <CircularProgress />
+      <Container style={{ minHeight: '420px' }}>
+        <div
+          style={{
+            display: 'table',
+            position: 'absolute',
+            top: '-15%',
+            left: 0,
+            height: '100%',
+            width: '100%',
+          }}
+        >
+          <div style={{ display: 'table-cell', verticalAlign: 'middle' }}>
+            <div style={{ marginLeft: '50%', marginRight: '50%' }}>
+              <CircularProgress />
+            </div>
+          </div>
         </div>
       </Container>
     </>
   );
+
   if (!props.inventory.isLoading) {
     element = (
       <>
