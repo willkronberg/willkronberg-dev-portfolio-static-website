@@ -1,13 +1,23 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable react/no-array-index-key */
-import React, { useEffect } from 'react';
-import Grid from '@material-ui/core/Grid';
 import { CircularProgress, Container } from '@material-ui/core';
-import { Dispatch } from 'redux';
+import ImageList from '@material-ui/core/ImageList';
+import ImageListItem from '@material-ui/core/ImageListItem';
+import ImageListItemBar from '@material-ui/core/ImageListItemBar';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { DiscogsState, fetchDiscogsInventory } from '../redux/modules/inventory';
+import { Dispatch } from 'redux';
 import { RootState } from '../redux';
-import Album from './Album';
+import { DiscogsState, fetchDiscogsInventory } from '../redux/modules/inventory';
+
+export interface Album {
+  title: string;
+  artist: string;
+  year: number;
+  addedOn: string;
+  link: string;
+  coverImage: string;
+}
 
 interface DispatchProps {
   fetchDiscogsInventory: () => void;
@@ -63,11 +73,14 @@ export const Inventory: React.FC<Props> = (props) => {
   if (!props.inventory.isLoading) {
     element = (
       <>
-        <Grid container spacing={4}>
+        <ImageList cols={6}>
           {albums.map((album, index) => (
-            <Album key={`${album.title}-${index}`} album={album} />
+            <ImageListItem key={`${album.title}-${album.addedOn}`}>
+              <img src={album.coverImage} srcSet={`${album.coverImage} `} alt={album.title} loading="lazy" />
+              <ImageListItemBar title={album.title} subtitle={album.artist} position="bottom" />
+            </ImageListItem>
           ))}
-        </Grid>
+        </ImageList>
       </>
     );
   }
