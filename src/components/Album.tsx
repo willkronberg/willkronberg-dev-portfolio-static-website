@@ -37,7 +37,7 @@ export const Album: React.FC<AlbumProps> = (props: AlbumProps) => {
                 {album.artist}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
-                {`Year: ${album.addedOn}`}
+                {`Year: ${album.year}`}
               </Typography>
               <Typography variant="subtitle1" color="textSecondary">
                 {`Date Added: ${album.addedOn}`}
@@ -45,6 +45,7 @@ export const Album: React.FC<AlbumProps> = (props: AlbumProps) => {
               <Link href={album.link}>More Information</Link>
             </CardContent>
           </div>
+          <CardMedia className={classes.cardMedia} image={album.coverImage} title={album.title} />
         </Card>
       </CardActionArea>
     </Grid>
@@ -57,6 +58,7 @@ export interface Album {
   year: number;
   addedOn: string;
   link: string;
+  coverImage: string;
 }
 
 export interface AlbumProps {

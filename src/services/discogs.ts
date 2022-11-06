@@ -44,24 +44,18 @@ export interface ReleaseBasicInformation {
 }
 
 export interface Release {
-  basic_information: ReleaseBasicInformation;
-  date_added: string;
   id: number;
-  instance_id: number;
-  rating: number;
+  artists: Record<string, any>[];
+  title: string;
+  year: number;
+  date_added: string;
+  cover_image: string;
+  url: string;
 }
 
 export const getInventory = async (): Promise<Release[]> => {
-  let releases: Release[] = [];
-  let nextUrl = 'https://api.discogs.com/users/will.kronberg/collection/folders/0/releases';
-  do {
-    // eslint-disable-next-line no-await-in-loop
-    const data = await makeRequest<any>(nextUrl);
+  const nextUrl = 'https://api.willkronberg.dev/records';
+  const response = await makeRequest<any>(nextUrl);
 
-    releases = [...releases, ...data.releases];
-
-    nextUrl = data.pagination.urls.next;
-  } while (nextUrl);
-
-  return releases;
+  return response.data;
 };

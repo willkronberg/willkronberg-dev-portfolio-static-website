@@ -26,11 +26,12 @@ export const Inventory: React.FC<Props> = (props) => {
   const albums: Album[] = [];
   for (const release of props.inventory.data) {
     const album: Album = {
-      artist: release.basic_information.artists[0].name,
-      title: release.basic_information.title,
-      year: release.basic_information.year,
+      artist: release.artists[0].name,
+      title: release.title,
+      year: release.year,
       addedOn: release.date_added,
-      link: release.basic_information.master_url,
+      link: release.url,
+      coverImage: release.cover_image,
     };
 
     albums.push(album);
