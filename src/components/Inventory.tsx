@@ -76,7 +76,7 @@ export const Inventory: React.FC<Props> = (props) => {
         <ImageList cols={6}>
           {albums.map((album, index) => (
             <ImageListItem key={`${album.title}-${album.addedOn}`}>
-              <img src={album.coverImage} srcSet={`${album.coverImage} `} alt={album.title} loading="lazy" />
+              <img src={album.coverImage} srcSet={`${album.coverImage} `} alt={album.title} loading="lazy" style={{ height: 'auto', width: '100%' }} />
               <ImageListItemBar title={album.title} subtitle={album.artist} position="bottom" />
             </ImageListItem>
           ))}
