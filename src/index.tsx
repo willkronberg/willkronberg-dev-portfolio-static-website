@@ -1,17 +1,37 @@
+import { configureStore } from '@reduxjs/toolkit';
+import { AwsRum, AwsRumConfig } from 'aws-rum-web';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { configureStore } from '@reduxjs/toolkit';
-import { persistStore, persistReducer } from 'redux-persist';
+import { BrowserRouter } from 'react-router-dom';
+import { persistReducer, persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
 import storage from 'redux-persist/lib/storage';
 import thunk from 'redux-thunk';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import { rootReducer } from './redux';
 import 'typeface-roboto';
+import App from './App';
 import './index.css';
+import { rootReducer } from './redux';
+import * as serviceWorker from './serviceWorker';
+
+try {
+  const config: AwsRumConfig = {
+    sessionSampleRate: 0,
+    endpoint: 'https://dataplane.rum.us-east-1.amazonaws.com',
+    telemetries: [],
+    allowCookies: false,
+    enableXRay: true,
+  };
+
+  const APPLICATION_ID: string = 'f53b18fc-ef5c-42d9-8a7c-a27aeb29b53d';
+  const APPLICATION_VERSION: string = '1.0.0';
+  const APPLICATION_REGION: string = 'us-east-1';
+
+  const awsRum: AwsRum = new AwsRum(APPLICATION_ID, APPLICATION_VERSION, APPLICATION_REGION, config);
+  console.log('AWS Rum Started');
+} catch (error) {
+  // Ignore errors thrown during CloudWatch RUM web client initialization
+}
 
 const persistConfig = {
   key: 'root',

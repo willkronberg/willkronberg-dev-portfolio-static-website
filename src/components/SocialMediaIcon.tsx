@@ -14,7 +14,7 @@ export const SocialMediaIcon: React.FC<SocialMediaIconProps> = (props: SocialMed
   const classes = useStyles();
   const { children, link } = props;
   const [childColor, setChildColor] = useState<string>('inherit');
-  const clonedChildren = React.isValidElement(children) ? React.cloneElement(children, { color: childColor }) : children;
+  const clonedChildren = React.isValidElement(children) ? React.cloneElement(children) : children;
 
   return (
     <div
