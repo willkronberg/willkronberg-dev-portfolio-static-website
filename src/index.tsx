@@ -16,10 +16,10 @@ import * as serviceWorker from './serviceWorker';
 
 try {
   const config: AwsRumConfig = {
-    sessionSampleRate: 0,
+    sessionSampleRate: 1,
     endpoint: 'https://dataplane.rum.us-east-1.amazonaws.com',
-    telemetries: [],
-    allowCookies: false,
+    telemetries: ['errors', 'performance', 'http'],
+    allowCookies: true,
     enableXRay: true,
   };
 
