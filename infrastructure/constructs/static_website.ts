@@ -91,6 +91,9 @@ export class StaticWebsite extends Construct {
       appMonitorConfiguration: {
         enableXRay: true,
         guestRoleArn: rumRole.roleArn,
+        allowCookies: true,
+        sessionSampleRate: 1,
+        telemetries: ['errors', 'performance', 'http'],
       },
     });
 
