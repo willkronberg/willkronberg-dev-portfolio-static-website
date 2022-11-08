@@ -11,6 +11,10 @@ const mockStore = configureStore([]);
 test('renders the web page', () => {
   const store = mockStore({
     isDarkModeEnabled: false,
+    articles: {
+      isLoading: true,
+      data: [],
+    },
   });
 
   const { getByText } = render(
