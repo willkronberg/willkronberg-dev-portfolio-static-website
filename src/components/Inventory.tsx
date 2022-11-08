@@ -31,7 +31,9 @@ type Props = DispatchProps & HeaderProps;
 
 export const Inventory: React.FC<Props> = (props) => {
   useEffect(() => {
-    props.fetchDiscogsInventory();
+    if (!props.inventory.isLoading && props.inventory.data.length === 0) {
+      props.fetchDiscogsInventory();
+    }
   }, []);
   const albums: Album[] = [];
   for (const release of props.inventory.data) {
