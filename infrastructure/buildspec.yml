@@ -5,6 +5,9 @@ phases:
     runtime-versions:
       nodejs: 14
     commands:
+      - npm --version
+      - npm install -g npm@latest
+      - npm --version
       - npm install
   pre_build:
     commands:
