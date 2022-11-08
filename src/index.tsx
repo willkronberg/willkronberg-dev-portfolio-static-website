@@ -38,7 +38,7 @@ try {
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['inventory'],
+  blacklist: ['inventory', 'articles'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

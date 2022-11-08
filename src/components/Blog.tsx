@@ -1,22 +1,41 @@
-import React from 'react';
+/* eslint-disable react/no-unused-prop-types */
 import Grid from '@material-ui/core/Grid';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { RootState } from '../redux';
+import { ArticlesState, fetchArticles } from '../redux/modules/articles';
 import FeaturedPost from './FeaturedPost';
 
-export const Blog: React.FC = () => {
-  const featuredPosts = [
-    {
-      title: 'Coming Soon',
-      date: 'May 25, 2022',
-      description: 'Content Coming Soon',
-      image: 'https://source.unsplash.com/random',
-      imageText: 'Image Text',
-    },
-  ];
+interface DispatchProps {
+  fetchArticles: () => void;
+}
+
+export interface ReduxStateProps {
+  articles: ArticlesState;
+}
+
+type Props = DispatchProps & ReduxStateProps;
+
+export const Blog: React.FC<Props> = (props) => {
+  useEffect(() => {
+    if (!props.articles.isLoading && props.articles.data.length === 0) {
+      props.fetchArticles();
+    }
+  }, []);
+
+  const posts = props.articles.data.map((article) => ({
+    title: article.title,
+    date: article.published_at,
+    description: article.subtitle,
+    image: 'https://source.unsplash.com/random',
+    imageText: 'Randomized Photo',
+  }));
 
   return (
     <>
       <Grid container spacing={4}>
-        {featuredPosts.map((post) => (
+        {posts.map((post) => (
           <FeaturedPost key={post.title} post={post} />
         ))}
       </Grid>
@@ -24,4 +43,12 @@ export const Blog: React.FC = () => {
   );
 };
 
-export default Blog;
+const mapStateToProps = (state: RootState) => ({
+  articles: state.articles,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  fetchArticles: () => dispatch<any>(fetchArticles()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Blog);

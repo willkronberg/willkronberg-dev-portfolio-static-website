@@ -35,6 +35,7 @@ export const Inventory: React.FC<Props> = (props) => {
       props.fetchDiscogsInventory();
     }
   }, []);
+
   const albums: Album[] = [];
   for (const release of props.inventory.data) {
     const album: Album = {
