@@ -3,8 +3,9 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14.21.1
+      nodejs: 14
     commands:
+      - n 14
       - node --version
       - npm install -g npm@latest
       - npm --version
