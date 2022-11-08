@@ -28,6 +28,7 @@ try {
   const APPLICATION_REGION: string = 'us-east-1';
 
   const awsRum: AwsRum = new AwsRum(APPLICATION_ID, APPLICATION_VERSION, APPLICATION_REGION, config);
+  console.info(awsRum);
 
   console.info('CloudWatch RUM Service Started');
 } catch (error) {

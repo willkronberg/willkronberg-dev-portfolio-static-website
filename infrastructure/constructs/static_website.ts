@@ -1,9 +1,7 @@
-import { CfnOutput, Stack } from 'aws-cdk-lib';
+import { CfnOutput } from 'aws-cdk-lib';
 import { DnsValidatedCertificate } from 'aws-cdk-lib/aws-certificatemanager';
-import { FederatedPrincipal, PolicyDocument, PolicyStatement, Role } from 'aws-cdk-lib/aws-iam';
 import { ARecord, HostedZone, IHostedZone, RecordTarget } from 'aws-cdk-lib/aws-route53';
 import { CloudFrontTarget } from 'aws-cdk-lib/aws-route53-targets';
-import { CfnAppMonitor } from 'aws-cdk-lib/aws-rum';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
 import { CloudfrontDistro } from './cloudfront_distro';
@@ -21,8 +19,6 @@ export class StaticWebsite extends Construct {
   public readonly deploymentBucket: Bucket;
 
   public readonly cloudfrontDistro: CloudfrontDistro;
-
-  public readonly monitor: CfnAppMonitor;
 
   constructor(scope: Construct, id: string, props: StaticWebsiteProps) {
     super(scope, id);
@@ -56,45 +52,6 @@ export class StaticWebsite extends Construct {
       recordName: props.domainName,
       target: RecordTarget.fromAlias(new CloudFrontTarget(this.cloudfrontDistro.distribution)),
       zone: this.hostedZone,
-    });
-
-    const rumRole = new Role(this, 'BlogMonitorRole', {
-      assumedBy: new FederatedPrincipal(
-        'cognito-identity.amazonaws.com',
-        {
-          'ForAnyValue:StringLike': {
-            'cognito-identity.amazonaws.com:amr': 'unauthenticated',
-          },
-        },
-        'sts:AssumeRoleWithWebIdentity'
-      ),
-      inlinePolicies: {
-        RUMPutBatchMetrics: new PolicyDocument({
-          statements: [
-            new PolicyStatement({
-              actions: ['rum:PutRumEvents'],
-              resources: ['*'],
-            }),
-            new PolicyStatement({
-              actions: ['xray:PutTraceSegments'],
-              resources: ['*'],
-            }),
-          ],
-        }),
-      },
-    });
-
-    this.monitor = new CfnAppMonitor(this, 'BlogMonitor', {
-      name: props.domainName,
-      domain: props.domainName,
-      cwLogEnabled: true,
-      appMonitorConfiguration: {
-        enableXRay: true,
-        guestRoleArn: rumRole.roleArn,
-        allowCookies: true,
-        sessionSampleRate: 1,
-        telemetries: ['errors', 'performance', 'http'],
-      },
     });
 
     new CfnOutput(this, 'CertificateArn', { value: this.sslCertificate.certificateArn });
