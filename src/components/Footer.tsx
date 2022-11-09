@@ -1,3 +1,4 @@
+/* eslint-disable react/no-invalid-html-attribute */
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -30,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
     flexWrap: 'wrap',
   },
+  smallAvatar: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
   largeAvatar: {
     width: theme.spacing(7),
     height: theme.spacing(7),
@@ -55,6 +60,15 @@ export const Footer: React.FC = () => {
           <SocialMediaIcon link="https://www.linkedin.com/in/willkronberg/">
             <LinkedInIcon />
           </SocialMediaIcon>
+          <SocialMediaIcon link="https://fosstodon.org/@wooly">
+            <Avatar className={classes.smallAvatar} alt="Mastodon" src="./mastodon.png" />
+            <a rel="me" href="https://fosstodon.org/@wooly" style={{ display: 'none' }}>
+              Mastodon
+            </a>
+          </SocialMediaIcon>
+          <SocialMediaIcon link="https://keybase.io/wooly">
+            <Avatar className={classes.smallAvatar} alt="Keybase" src="./keybase.png" />
+          </SocialMediaIcon>
         </div>
         <Copyright />
       </Container>
@@ -63,3 +77,5 @@ export const Footer: React.FC = () => {
 };
 
 export default Footer;
+
+//
