@@ -26,10 +26,11 @@ export const Blog: React.FC<Props> = (props) => {
 
   const posts = props.articles.data.map((article) => ({
     title: article.title,
-    date: article.published_at,
-    description: article.subtitle,
+    description: article.description,
+    date: article.published_date,
     image: 'https://source.unsplash.com/random',
     imageText: 'Randomized Photo',
+    link: article.link,
   }));
 
   return (

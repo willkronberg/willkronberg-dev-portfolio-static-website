@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import { Link } from '@material-ui/core';
 
 const useStyles = makeStyles({
   card: {
@@ -23,24 +24,26 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = (props: FeaturedPostPro
   const classes = useStyles();
   const { post } = props;
 
+  const pubDate = new Date(post.date);
+
   return (
     <Grid item xs={12} md={12}>
-      <CardActionArea component="a" href="#">
+      <CardActionArea component="a" href={post.link}>
         <Card className={classes.card}>
           <div className={classes.cardDetails}>
             <CardContent>
               <Typography component="h2" variant="h5">
                 {post.title}
               </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                {post.date}
-              </Typography>
               <Typography variant="subtitle1" paragraph>
                 {post.description}
               </Typography>
-              <Typography variant="subtitle1" color="primary">
-                Continue reading...
+              <Typography variant="subtitle2" color="textSecondary">
+                {pubDate.toLocaleString()}
               </Typography>
+              {/* <Link variant="subtitle1" href={post.link}>
+                Continue Reading
+              </Link> */}
             </CardContent>
           </div>
           <CardMedia className={classes.cardMedia} image={post.image} title={post.imageText} />
@@ -52,10 +55,11 @@ export const FeaturedPost: React.FC<FeaturedPostProps> = (props: FeaturedPostPro
 
 export interface Post {
   title: string;
-  date?: string;
+  date: string;
   description: string;
   image: string;
   imageText?: string;
+  link?: string;
 }
 
 export interface FeaturedPostProps {
