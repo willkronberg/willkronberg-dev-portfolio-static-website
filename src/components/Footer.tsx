@@ -43,6 +43,9 @@ const useStyles = makeStyles((theme) => ({
     flexBasis: '100%',
     height: 0,
   },
+  mastodonLink: {
+    display: 'none',
+  },
 }));
 
 export const Footer: React.FC = () => {
@@ -62,7 +65,7 @@ export const Footer: React.FC = () => {
           </SocialMediaIcon>
           <SocialMediaIcon link="https://fosstodon.org/@wooly">
             <Avatar className={classes.smallAvatar} alt="Mastodon" src="./mastodon.png" />
-            <a rel="me" href="https://fosstodon.org/@wooly" style={{ display: 'none' }}>
+            <a rel="me" href="https://fosstodon.org/@wooly" className={classes.mastodonLink}>
               Mastodon
             </a>
           </SocialMediaIcon>

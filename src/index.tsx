@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { AwsRum, AwsRumConfig } from 'aws-rum-web';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -14,31 +13,10 @@ import './index.css';
 import { rootReducer } from './redux';
 import * as serviceWorker from './serviceWorker';
 
-try {
-  const config: AwsRumConfig = {
-    sessionSampleRate: 1,
-    endpoint: 'https://dataplane.rum.us-east-1.amazonaws.com',
-    telemetries: ['errors', 'performance', 'http'],
-    allowCookies: true,
-    enableXRay: true,
-  };
-
-  const APPLICATION_ID: string = 'f53b18fc-ef5c-42d9-8a7c-a27aeb29b53d';
-  const APPLICATION_VERSION: string = '1.0.0';
-  const APPLICATION_REGION: string = 'us-east-1';
-
-  const awsRum: AwsRum = new AwsRum(APPLICATION_ID, APPLICATION_VERSION, APPLICATION_REGION, config);
-  console.info(awsRum);
-
-  console.info('CloudWatch RUM Service Started');
-} catch (error) {
-  // Ignore errors thrown during CloudWatch RUM web client initialization
-}
-
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['inventory', 'articles'],
+  blacklist: ['inventory'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
