@@ -75,11 +75,11 @@ export const Inventory: React.FC<Props> = (props) => {
 
   if (!props.inventory.isLoading) {
     element = (
-      <Container style={{ minHeight: '420px' }}>
-        <ImageList cols={5}>
+      <Container>
+        <ImageList>
           {albums.map((album, index) => (
-            <ImageListItem key={`${album.title}-${album.addedOn}`} style={{ height: '20vh', width: '20vh', objectFit: 'cover' }}>
-              <img src={album.coverImage} srcSet={`${album.coverImage}`} alt={album.title} loading="lazy" style={{ height: 'auto', width: '100%' }} />
+            <ImageListItem key={`${album.title}-${album.addedOn}`} style={{ height: '20vh', width: '20vh', objectFit: 'scale-down' }}>
+              <img src={album.coverImage} srcSet={`${album.coverImage}`} alt={album.title} loading="lazy" />
               <ImageListItemBar title={album.title} subtitle={album.artist} />
             </ImageListItem>
           ))}
