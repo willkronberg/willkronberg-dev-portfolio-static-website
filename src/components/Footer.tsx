@@ -63,11 +63,8 @@ export const Footer: React.FC = () => {
           <SocialMediaIcon link="https://www.linkedin.com/in/willkronberg/">
             <LinkedInIcon />
           </SocialMediaIcon>
-          <SocialMediaIcon link="https://fosstodon.org/@wooly">
+          <SocialMediaIcon link="https://hachyderm.io/@wooly">
             <Avatar className={classes.smallAvatar} alt="Mastodon" src="./mastodon.png" />
-            <a rel="me" href="https://fosstodon.org/@wooly" className={classes.mastodonLink}>
-              Mastodon
-            </a>
           </SocialMediaIcon>
           <SocialMediaIcon link="https://keybase.io/wooly">
             <Avatar className={classes.smallAvatar} alt="Keybase" src="./keybase.png" />
