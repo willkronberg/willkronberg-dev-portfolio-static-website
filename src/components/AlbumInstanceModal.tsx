@@ -23,19 +23,17 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     position: 'absolute',
-    height: '30vh',
-    width: '65vh',
-    backgroundColor: theme.palette.background.paper,
+    height: '47vh',
+    width: '30vh',
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
+    backgroundColor: theme.palette.background.paper,
   },
   listRoot: {
     width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
   },
   details: {
-    paddingTop: theme.spacing(8),
+    width: '30vw',
   },
   cover: {
     height: '30vh',
@@ -57,7 +55,7 @@ export const AlbumInstanceModal: React.FC<AlbumInstanceModalProps> = (props: Alb
         <Grid item xs>
           <img className={classes.cover} src={album.coverImage} srcSet={`${album.coverImage}`} alt={album.title} loading="lazy" />
         </Grid>
-        <Grid item xs={6} className={classes.details}>
+        <Grid item xs={12} lg className={classes.details}>
           <List component="nav" className={classes.listRoot} aria-label="contacts">
             <ListItem>
               <ListItemIcon>
