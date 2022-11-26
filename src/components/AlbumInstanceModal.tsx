@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     position: 'absolute',
-    height: 305,
-    width: 700,
+    height: '30vh',
+    width: '65vh',
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
     boxShadow: theme.shadows[5],
@@ -35,11 +35,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   details: {
-    paddingTop: theme.spacing(10),
+    paddingTop: theme.spacing(8),
   },
   cover: {
-    height: 305,
-    width: 305,
+    height: '30vh',
+    width: '30vh',
     objectFit: 'contain',
   },
 }));

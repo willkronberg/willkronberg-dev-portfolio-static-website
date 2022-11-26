@@ -99,7 +99,7 @@ export const Inventory: React.FC<Props> = (props) => {
               <ImageListItem
                 key={`${album.title}-${album.addedOn}`}
                 onClick={() => onAlbumThumbClick(album)}
-                style={{ height: '120px', width: '120px', objectFit: 'contain' }}
+                style={{ height: '20vw', width: '20vw', objectFit: 'contain' }}
               >
                 <img src={album.thumb} srcSet={`${album.thumb}`} alt={album.title} loading="lazy" />
                 <ImageListItemBar title={album.title} subtitle={album.artist} />
