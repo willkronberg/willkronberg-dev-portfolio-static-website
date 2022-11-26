@@ -4,11 +4,12 @@ import { CircularProgress, Container } from '@material-ui/core';
 import ImageList from '@material-ui/core/ImageList';
 import ImageListItem from '@material-ui/core/ImageListItem';
 import ImageListItemBar from '@material-ui/core/ImageListItemBar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { RootState } from '../redux';
 import { DiscogsState, fetchDiscogsInventory } from '../redux/modules/inventory';
+import AlbumInstanceModal from './AlbumInstanceModal';
 
 export interface Album {
   title: string;
@@ -30,6 +31,9 @@ export interface HeaderProps {
 type Props = DispatchProps & HeaderProps;
 
 export const Inventory: React.FC<Props> = (props) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [selectedAlbum, setSelectedAlbum] = useState<Album | null>(null);
+
   useEffect(() => {
     if (!props.inventory.isLoading && props.inventory.data.length === 0) {
       props.fetchDiscogsInventory();
@@ -49,6 +53,17 @@ export const Inventory: React.FC<Props> = (props) => {
 
     albums.push(album);
   }
+
+  const onAlbumInstanceModalClose = () => {
+    setIsOpen(false);
+    setSelectedAlbum(null);
+  };
+
+  const onAlbumThumbClick = (album: Album) => {
+    console.log('Album Clicked: ', album.artist, ' - ', album.title);
+    setSelectedAlbum(album);
+    setIsOpen(true);
+  };
 
   let element = (
     <>
@@ -75,16 +90,23 @@ export const Inventory: React.FC<Props> = (props) => {
 
   if (!props.inventory.isLoading) {
     element = (
-      <Container>
-        <ImageList style={{ paddingLeft: '5vh', margin: '0' }}>
-          {albums.map((album, index) => (
-            <ImageListItem key={`${album.title}-${album.addedOn}`} style={{ height: '150px', width: '150px', objectFit: 'contain' }}>
-              <img src={album.coverImage} srcSet={`${album.coverImage}`} alt={album.title} loading="lazy" />
-              <ImageListItemBar title={album.title} subtitle={album.artist} />
-            </ImageListItem>
-          ))}
-        </ImageList>
-      </Container>
+      <>
+        <Container>
+          <ImageList style={{ paddingLeft: '5vh', margin: '0' }}>
+            {albums.map((album, index) => (
+              <ImageListItem
+                key={`${album.title}-${album.addedOn}`}
+                onClick={() => onAlbumThumbClick(album)}
+                style={{ height: '120px', width: '120px', objectFit: 'contain' }}
+              >
+                <img src={album.coverImage} srcSet={`${album.coverImage}`} alt={album.title} loading="lazy" />
+                <ImageListItemBar title={album.title} subtitle={album.artist} />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </Container>
+        {selectedAlbum !== null && <AlbumInstanceModal album={selectedAlbum} isVisible={isOpen} handleClose={onAlbumInstanceModalClose} />}
+      </>
     );
   }
 
