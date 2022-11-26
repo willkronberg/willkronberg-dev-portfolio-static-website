@@ -30,7 +30,7 @@ export const App = (props: StateProps) => {
   const sections: Section[] = [
     { title: 'Home', url: '/' },
     { title: 'About Me', url: '/aboutme' },
-    { title: 'Record Inventory', url: '/inventory' },
+    { title: 'Record Collection', url: '/collection' },
   ];
 
   return (
@@ -44,7 +44,7 @@ export const App = (props: StateProps) => {
               <Routes>
                 <Route path="/" element={<Blog />} />
                 <Route path="/aboutme" element={<AboutMe />} />
-                <Route path="/inventory" element={<Inventory />} />
+                <Route path="/collection" element={<Inventory />} />
               </Routes>
             </div>
           </main>
