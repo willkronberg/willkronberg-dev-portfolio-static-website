@@ -50,6 +50,7 @@ export interface Release {
   year: number;
   date_added: string;
   cover_image: string;
+  thumb: string;
   url: string;
 }
 

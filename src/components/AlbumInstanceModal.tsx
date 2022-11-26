@@ -49,7 +49,7 @@ export const AlbumInstanceModal: React.FC<AlbumInstanceModalProps> = (props: Alb
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const { album, isVisible, handleClose } = props;
-  // const addedOn = new Date(album.addedOn);
+  const addedOn = new Date(album.addedOn);
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
@@ -75,7 +75,7 @@ export const AlbumInstanceModal: React.FC<AlbumInstanceModalProps> = (props: Alb
               <ListItemIcon>
                 <EventAvailableIcon />
               </ListItemIcon>
-              <ListItemText primary={album.year} />
+              <ListItemText primary={addedOn.toLocaleDateString()} />
             </ListItem>
           </List>
         </Grid>

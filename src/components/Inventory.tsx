@@ -18,6 +18,7 @@ export interface Album {
   addedOn: string;
   link: string;
   coverImage: string;
+  thumb: string;
 }
 
 interface DispatchProps {
@@ -49,6 +50,7 @@ export const Inventory: React.FC<Props> = (props) => {
       addedOn: release.date_added,
       link: release.url,
       coverImage: release.cover_image,
+      thumb: release.thumb,
     };
 
     albums.push(album);
@@ -99,7 +101,7 @@ export const Inventory: React.FC<Props> = (props) => {
                 onClick={() => onAlbumThumbClick(album)}
                 style={{ height: '120px', width: '120px', objectFit: 'contain' }}
               >
-                <img src={album.coverImage} srcSet={`${album.coverImage}`} alt={album.title} loading="lazy" />
+                <img src={album.thumb} srcSet={`${album.thumb}`} alt={album.title} loading="lazy" />
                 <ImageListItemBar title={album.title} subtitle={album.artist} />
               </ImageListItem>
             ))}
