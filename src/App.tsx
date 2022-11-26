@@ -29,7 +29,6 @@ export const App = (props: StateProps) => {
 
   const sections: Section[] = [
     { title: 'Home', url: '/' },
-    { title: 'About Me', url: '/aboutme' },
     { title: 'Record Collection', url: '/collection' },
   ];
 
