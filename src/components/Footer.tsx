@@ -42,10 +42,7 @@ const useStyles = makeStyles((theme) => ({
   break: {
     flexBasis: '100%',
     height: 0,
-  },
-  mastodonLink: {
-    display: 'none',
-  },
+  }
 }));
 
 export const Footer: React.FC = () => {
@@ -63,9 +60,6 @@ export const Footer: React.FC = () => {
           <SocialMediaIcon link="https://www.linkedin.com/in/willkronberg/">
             <LinkedInIcon />
           </SocialMediaIcon>
-          <SocialMediaIcon link="https://hachyderm.io/@wooly">
-            <Avatar className={classes.smallAvatar} alt="Mastodon" src="./mastodon.png" />
-          </SocialMediaIcon>
           <SocialMediaIcon link="https://keybase.io/wooly">
             <Avatar className={classes.smallAvatar} alt="Keybase" src="./keybase.png" />
           </SocialMediaIcon>
@@ -77,5 +71,3 @@ export const Footer: React.FC = () => {
 };
 
 export default Footer;
-
-//
