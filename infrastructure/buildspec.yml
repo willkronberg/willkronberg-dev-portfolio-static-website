@@ -3,9 +3,8 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 14
+      nodejs: 16
     commands:
-      - n 14 # Workaround to actually install Node 14 on the CodeBuild instance
       - npm install
   pre_build:
     commands:
