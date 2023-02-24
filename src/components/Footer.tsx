@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   break: {
     flexBasis: '100%',
     height: 0,
-  }
+  },
 }));
 
 export const Footer: React.FC = () => {

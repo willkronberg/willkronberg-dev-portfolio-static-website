@@ -15,47 +15,12 @@ interface CloudfrontDistroProps {
 }
 
 export class CloudfrontDistro extends Construct {
-  public readonly webACL: CfnWebACL;
-
   public readonly distribution: CloudFrontWebDistribution;
 
   public readonly invalidateProject: PipelineProject;
 
   constructor(scope: Construct, id: string, props: CloudfrontDistroProps) {
     super(scope, id);
-
-    this.webACL = new CfnWebACL(this, 'BlogWebACL', {
-      name: 'BlogWebACL',
-      defaultAction: {
-        allow: {},
-      },
-      scope: 'CLOUDFRONT',
-      visibilityConfig: {
-        cloudWatchMetricsEnabled: true,
-        metricName: 'MetricForBlogWebACL',
-        sampledRequestsEnabled: true,
-      },
-      rules: [
-        {
-          name: 'CRSRule',
-          priority: 0,
-          statement: {
-            managedRuleGroupStatement: {
-              name: 'AWSManagedRulesCommonRuleSet',
-              vendorName: 'AWS',
-            },
-          },
-          visibilityConfig: {
-            cloudWatchMetricsEnabled: true,
-            metricName: 'MetricForBlogWebACL-CRS',
-            sampledRequestsEnabled: true,
-          },
-          overrideAction: {
-            none: {},
-          },
-        },
-      ],
-    });
 
     this.distribution = new CloudFrontWebDistribution(this, 'SiteDistribution', {
       viewerCertificate: {
@@ -88,7 +53,6 @@ export class CloudfrontDistro extends Construct {
           errorCachingMinTtl: 10,
         },
       ],
-      webACLId: this.webACL.attrArn,
     });
 
     this.invalidateProject = new PipelineProject(this, 'InvalidateProject', {

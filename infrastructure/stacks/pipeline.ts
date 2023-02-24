@@ -1,5 +1,4 @@
 import * as CodeBuild from 'aws-cdk-lib/aws-codebuild';
-import { BuildSpec, PipelineProject } from 'aws-cdk-lib/aws-codebuild';
 import * as CodePipeline from 'aws-cdk-lib/aws-codepipeline';
 import * as CodePipelineAction from 'aws-cdk-lib/aws-codepipeline-actions';
 import { App, SecretValue, Stack, StackProps } from 'aws-cdk-lib';
