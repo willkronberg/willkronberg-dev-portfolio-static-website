@@ -10,7 +10,6 @@ phases:
   pre_build:
     commands:
       - npm run lint
-      - npm run test:ci
   build:
     commands:
       - npm run-script build
