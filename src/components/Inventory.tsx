@@ -101,7 +101,7 @@ export const Inventory: React.FC<Props> = (props) => {
                 onClick={() => onAlbumThumbClick(album)}
                 style={{ height: '20vw', width: '20vw', maxWidth: '120px', maxHeight: '120px', objectFit: 'contain' }}
               >
-                <img src={album.thumb} srcSet={`${album.thumb}`} alt={album.title} loading="lazy" />
+                <img src={album.coverImage} srcSet={`${album.coverImage}`} alt={album.title} loading="lazy" />
                 <ImageListItemBar title={album.title} subtitle={album.artist} />
               </ImageListItem>
             ))}
