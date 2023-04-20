@@ -1,9 +1,10 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable react/no-array-index-key */
-import { CircularProgress, Container } from '@mui/material';
+import { CircularProgress, Container, useMediaQuery } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
+import { DefaultTheme } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -67,6 +68,8 @@ export const Inventory: React.FC<Props> = (props) => {
     setIsOpen(true);
   };
 
+  const matchDownMd = useMediaQuery((theme: DefaultTheme) => theme.breakpoints.down('sm'));
+
   let element = (
     <>
       <Container style={{ minHeight: '420px' }}>
@@ -94,7 +97,7 @@ export const Inventory: React.FC<Props> = (props) => {
     element = (
       <>
         <Container>
-          <ImageList cols={5}>
+          <ImageList cols={matchDownMd ? 3 : 6}>
             {albums.map((album, index) => (
               <ImageListItem
                 key={`${album.title}-${album.addedOn}`}
