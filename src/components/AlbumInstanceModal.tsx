@@ -1,9 +1,9 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Grid, List, ListItem, ListItemIcon, ListItemText, Modal, Paper } from '@material-ui/core';
-import AlbumIcon from '@material-ui/icons/Album';
-import PersonIcon from '@material-ui/icons/Person';
-import EventAvailableIcon from '@material-ui/icons/EventAvailable';
+import { makeStyles } from '@mui/styles';
+import { Grid, List, ListItem, ListItemIcon, ListItemText, Modal, Paper } from '@mui/material';
+import AlbumIcon from '@mui/icons-material/Album';
+import PersonIcon from '@mui/icons-material/Person';
+import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import { Album } from './Inventory';
 
 function getModalStyle() {

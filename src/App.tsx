@@ -1,9 +1,9 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { createTheme, ThemeProvider, Theme } from '@mui/material/styles';
 import { connect } from 'react-redux';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
 import { RootState } from './redux';
 import { PreferencesState } from './redux/modules/preferences';
 import AboutMe from './components/AboutMe';
@@ -11,6 +11,10 @@ import Header, { Section } from './components/Header';
 import Footer from './components/Footer';
 import Blog from './components/Blog';
 import Inventory from './components/Inventory';
+
+declare module '@mui/styles/defaultTheme' {
+  interface DefaultTheme extends Theme {}
+}
 
 interface StateProps {
   preferences: PreferencesState;
@@ -21,7 +25,7 @@ export const App = (props: StateProps) => {
     () =>
       createTheme({
         palette: {
-          type: props.preferences.isDarkModeEnabled ? 'dark' : 'light',
+          mode: props.preferences.isDarkModeEnabled ? 'dark' : 'light',
         },
       }),
     [props.preferences.isDarkModeEnabled]

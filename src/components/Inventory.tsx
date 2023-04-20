@@ -1,9 +1,9 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable react/no-array-index-key */
-import { CircularProgress, Container } from '@material-ui/core';
-import ImageList from '@material-ui/core/ImageList';
-import ImageListItem from '@material-ui/core/ImageListItem';
-import ImageListItemBar from '@material-ui/core/ImageListItemBar';
+import { CircularProgress, Container } from '@mui/material';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import ImageListItemBar from '@mui/material/ImageListItemBar';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
@@ -94,12 +94,11 @@ export const Inventory: React.FC<Props> = (props) => {
     element = (
       <>
         <Container>
-          <ImageList style={{ paddingLeft: '5vh', margin: '0' }}>
+          <ImageList cols={5}>
             {albums.map((album, index) => (
               <ImageListItem
                 key={`${album.title}-${album.addedOn}`}
                 onClick={() => onAlbumThumbClick(album)}
-                style={{ height: '20vw', width: '20vw', maxWidth: '120px', maxHeight: '120px', objectFit: 'contain' }}
               >
                 <img src={album.coverImage} srcSet={`${album.coverImage}`} alt={album.title} loading="lazy" />
                 <ImageListItemBar title={album.title} subtitle={album.artist} />

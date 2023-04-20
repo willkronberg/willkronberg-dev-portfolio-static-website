@@ -1,11 +1,11 @@
 /* eslint-disable react/no-invalid-html-attribute */
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import Avatar from '@material-ui/core/Avatar';
+import { makeStyles } from '@mui/styles';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import Avatar from '@mui/material/Avatar';
 import SocialMediaIcon from './SocialMediaIcon';
 
 function Copyright() {
@@ -59,9 +59,6 @@ export const Footer: React.FC = () => {
           </SocialMediaIcon>
           <SocialMediaIcon link="https://www.linkedin.com/in/willkronberg/">
             <LinkedInIcon />
-          </SocialMediaIcon>
-          <SocialMediaIcon link="https://keybase.io/wooly">
-            <Avatar className={classes.smallAvatar} alt="Keybase" src="./keybase.png" />
           </SocialMediaIcon>
         </div>
         <Copyright />

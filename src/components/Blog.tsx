@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unused-prop-types */
-import Grid from '@material-ui/core/Grid';
+import Grid from '@mui/material/Grid';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
