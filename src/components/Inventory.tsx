@@ -63,12 +63,11 @@ export const Inventory: React.FC<Props> = (props) => {
   };
 
   const onAlbumThumbClick = (album: Album) => {
-    console.log('Album Clicked: ', album.artist, ' - ', album.title);
     setSelectedAlbum(album);
     setIsOpen(true);
   };
 
-  const matchDownMd = useMediaQuery((theme: DefaultTheme) => theme.breakpoints.down('sm'));
+  const isSmallerThanSmBreakpoint = useMediaQuery((theme: DefaultTheme) => theme.breakpoints.down('sm'));
 
   let element = (
     <>
@@ -97,7 +96,7 @@ export const Inventory: React.FC<Props> = (props) => {
     element = (
       <>
         <Container>
-          <ImageList cols={matchDownMd ? 3 : 6}>
+          <ImageList cols={isSmallerThanSmBreakpoint ? 3 : 8}>
             {albums.map((album, index) => (
               <ImageListItem
                 key={`${album.title}-${album.addedOn}`}
