@@ -6,9 +6,11 @@ export const April: React.FC = () => {
   return (
     <>
       <Snowfall color="#FF69B4" radius={[2.0, 20.0]} style={{ zIndex: -1 }} />
+      <Snowfall color="#99CCFF" radius={[2.0, 20.0]} style={{ zIndex: -1 }} />
+      <Snowfall color="#99FFCC" radius={[2.0, 20.0]} style={{ zIndex: -1 }} />
       <Container>
-        <Paper style={{ minHeight: '65vh', padding: '2rem' }}>
-          <p style={{ fontSize: '45px', textAlign: 'center' }}>I Love April Scott with all of my heart!!</p>
+        <Paper style={{ padding: '2rem' }}>
+          <p style={{ fontSize: '45px', textAlign: 'center' }}>I love April Scott with all of my heart!!!</p>
         </Paper>
       </Container>
     </>

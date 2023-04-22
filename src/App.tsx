@@ -43,7 +43,7 @@ export const App = (props: StateProps) => {
         <CssBaseline />
         <Container maxWidth="lg">
           <Header title="willkronberg.dev" sections={sections} />
-          <main style={{ minHeight: '65vh' }}>
+          <main style={{ minHeight: '60vh' }}>
             <div>
               <Routes>
                 <Route path="/" element={<Blog />} />
