@@ -63,6 +63,7 @@
     "react-refresh": "^0.11.0",
     "react-router-dom": "^6.8.1",
     "react-rss": "^2.0.1",
+    "react-snowfall": "^1.2.1",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
