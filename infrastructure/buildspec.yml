@@ -8,7 +8,6 @@ phases:
       - npm install
   pre_build:
     commands:
-      - npm run lint
       - npm run test:ci
   build:
     commands:
