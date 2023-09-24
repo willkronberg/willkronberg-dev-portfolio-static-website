@@ -5,7 +5,11 @@
     "jest": true,
     "cypress/globals": true
   },
-  "extends": ["plugin:react/recommended", "airbnb", "plugin:cypress/recommended"],
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:cypress/recommended"
+  ],
   "globals": {
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly",
@@ -19,11 +23,20 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "@typescript-eslint", "cypress"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "cypress"
+  ],
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
       }
     }
   },
@@ -35,7 +48,12 @@
     "comma-dangle": "off",
     "no-unused-vars": "off",
     "import/no-extraneous-dependencies": "off",
-    "max-len": ["error", { "code": 160 }],
+    "max-len": [
+      "error",
+      {
+        "code": 160
+      }
+    ],
     "object-curly-newline": "off",
     "react/destructuring-assignment": "off",
     "implicit-arrow-linebreak": "off",
@@ -48,6 +66,7 @@
     "default-param-last": "off",
     "no-use-before-define": "off",
     "react/jsx-no-useless-fragment": "off",
-    "react/function-component-definition": "off"
+    "react/function-component-definition": "off",
+    "react/require-default-props": "off"
   }
 }

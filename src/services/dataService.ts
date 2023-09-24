@@ -7,7 +7,16 @@ export default async function makeRequest<T>(url: string): Promise<T> {
 
   return new Promise((resolve, reject) => {
     fetch(url)
-      .then((response) => resolve(response.json()))
-      .catch((error: Error) => reject(error));
+      .then((response) => {
+        const responseBody = response.json();
+
+        if (response.status >= 300) {
+          reject(responseBody);
+        }
+        resolve(responseBody);
+      })
+      .catch((error: Error) => {
+        reject(error);
+      });
   });
 }

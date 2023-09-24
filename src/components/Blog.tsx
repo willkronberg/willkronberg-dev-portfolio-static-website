@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-prop-types */
 import Grid from '@mui/material/Grid';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -6,6 +5,7 @@ import { Dispatch } from 'redux';
 import { RootState } from '../redux';
 import { ArticlesState, fetchArticles } from '../redux/modules/articles';
 import FeaturedPost from './FeaturedPost';
+import ErrorBoundary from './ErrorBoundary';
 
 interface DispatchProps {
   fetchArticles: () => void;
@@ -19,7 +19,7 @@ type Props = DispatchProps & ReduxStateProps;
 
 export const Blog: React.FC<Props> = (props) => {
   useEffect(() => {
-    if (!props.articles.isLoading && props.articles.data.length === 0) {
+    if (!props.articles.isLoading) {
       props.fetchArticles();
     }
   }, []);
@@ -34,13 +34,13 @@ export const Blog: React.FC<Props> = (props) => {
   }));
 
   return (
-    <>
+    <ErrorBoundary>
       <Grid container spacing={4}>
         {posts.map((post) => (
           <FeaturedPost key={post.title} post={post} />
         ))}
       </Grid>
-    </>
+    </ErrorBoundary>
   );
 };
 

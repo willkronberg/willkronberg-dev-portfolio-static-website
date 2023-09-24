@@ -35,6 +35,7 @@ export const fetchArticlesReducer = (state = initialState, action: ArticlesActio
       return {
         ...state,
         isLoading: true,
+        data: [],
         error: { isError: false, message: '' },
       };
     case 'articles/FETCH_ARTICLES_SUCCESS':
@@ -61,10 +62,11 @@ export const fetchArticles = (): ((dispatch: ThunkDispatch<{}, {}, AnyAction>) =
       dispatch(fetchArticlesLoading());
 
       const results = await getArticles();
+
       dispatch(fetchArticlesSuccess(results));
     } catch (ex: unknown) {
+      console.error(ex);
       dispatch(fetchArticlesError(ex as Error));
-      throw ex;
     }
   };
 };
