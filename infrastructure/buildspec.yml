@@ -3,9 +3,10 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      nodejs: 18
+      nodejs: 14
     commands:
-      - npm install --legacy-peer-deps --omit=dev
+      - n 14 # Workaround to actually install Node 14 on the CodeBuild instance
+      - npm install
   build:
     commands:
       - npm run-script build
