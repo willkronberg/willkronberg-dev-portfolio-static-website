@@ -5,7 +5,7 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
-      - npm install
+      - npm install --legacy-peer-deps --omit=dev
   build:
     commands:
       - npm run-script build
