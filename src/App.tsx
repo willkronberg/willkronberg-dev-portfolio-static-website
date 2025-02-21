@@ -11,7 +11,6 @@ import Header, { Section } from './components/Header';
 import Footer from './components/Footer';
 import Blog from './components/Blog';
 import Inventory from './components/Inventory';
-import April from './components/April';
 
 declare module '@mui/styles/defaultTheme' {
   interface DefaultTheme extends Theme {}
@@ -49,7 +48,6 @@ export const App = (props: StateProps) => {
                 <Route path="/" element={<Blog />} />
                 <Route path="/aboutme" element={<AboutMe />} />
                 <Route path="/collection" element={<Inventory />} />
-                <Route path="/april" element={<April />} />
               </Routes>
             </div>
           </main>
