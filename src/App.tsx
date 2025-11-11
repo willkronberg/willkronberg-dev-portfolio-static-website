@@ -41,7 +41,7 @@ export const App = (props: StateProps) => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container maxWidth="lg">
-          <Header title="willkronberg.dev" sections={sections} />
+          <Header title="willkronberg.dev!!!" sections={sections} />
           <main style={{ minHeight: '60vh' }}>
             <div>
               <Routes>
